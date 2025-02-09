@@ -1,5 +1,7 @@
 package com.devsuperior.dslist.entities;
 
+import java.util.Objects;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,32 +14,61 @@ public class GameList {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long list_id;
-	private String game_id;
-	private Long position;
-	
-	public Long getList_id() {
-		return list_id;
+	private Long id;
+	private String name;
+
+	public GameList() {
+		
 	}
 	
-	public void setList_id(Long list_id) {
-		this.list_id = list_id;
+	public GameList(Long id, String name) {
+		this.id = id;
+		this.name = name;
 	}
-	
-	public String getGame_id() {
-		return game_id;
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
 	}
-	
-	public void setGame_id(String game_id) {
-		this.game_id = game_id;
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
-	
-	public Long getPosition() {
-		return position;
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
 	}
-	
-	public void setPosition(Long position) {
-		this.position = position;
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GameList other = (GameList) obj;
+		return Objects.equals(id, other.id) && Objects.equals(name, other.name);
 	}
 	
 }
