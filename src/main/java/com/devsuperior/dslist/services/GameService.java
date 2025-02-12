@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.devsuperior.dslist.dto.GameDTO;
 import com.devsuperior.dslist.dto.GameMinDTO;
 import com.devsuperior.dslist.entities.Game;
+import com.devsuperior.dslist.exceptionhandler.ResourceNotFoundException;
 import com.devsuperior.dslist.projections.GameMinProjection;
 import com.devsuperior.dslist.repositories.GameRepository;
 
@@ -24,7 +25,8 @@ public class GameService {
 	//retorna GameDTO por id, transação só de leitura sem escrita aumenta a velocidade da transação
 	@Transactional(readOnly = true)
 	public GameDTO findById(Long id) {
-		Game result = gameRepository.findById(id).get();
+		//Game result = gameRepository.findById(id).get();
+		Game result = gameRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Game não encontrado " + id));
 		GameDTO dto = new GameDTO(result);
 		return dto;
 	}
